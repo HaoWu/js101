@@ -5,6 +5,14 @@
  * Time: 4:23 PM
  */
 TestCase('js basic test', {
+    'test variable valid declarations': function() {
+        var $v1 = 1;
+        var _v1 = 1;
+        var v1 = 1;
+
+        assertEquals($v1, _v1);
+        assertEquals(_v1, v1);
+    },
     'test variable is case sensitive': function(){
         var variable = 1;
         var Variable = 2;
