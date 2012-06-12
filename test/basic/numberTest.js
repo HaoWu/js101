@@ -170,3 +170,55 @@ TestCase('Test difference between parseInt/parseFloat and Number constructor', {
         assertTrue(isNaN(Number("2.3.4")));
     }
 });
+
+TestCase('Test methods of Number type', {
+    'test toString method':function () {
+        var number = new Number(10);
+
+        assertEquals("10", number.toString());
+        assertEquals("1010", number.toString(2));
+        assertEquals("12", number.toString(8));
+        assertEquals("10", number.toString(10));
+        assertEquals("a", number.toString(16));
+    },
+    'test valueOf method':function () {
+        var number = new Number(10);
+
+        assertEquals(10, number.valueOf());
+    },
+    'test toFixed method':function () {
+        // toFixed() method returns a string representation of a number with a specified number of decimal points
+        var number = new Number(1);
+
+        assertEquals("1.0", number.toFixed(1));
+        assertEquals("1.00", number.toFixed(2));
+
+        number = new Number(1.006);
+        assertEquals('1.01', number.toFixed(2));
+
+        number = new Number(1.004);
+        assertEquals('1.00', number.toFixed(2));
+
+        //float number is not precise, rounding of 1.005 varies, e.g 1.00 in chrome, 1.01 in ie9
+        number = new Number(1.005);
+        var fixed = number.toFixed(2);
+        //since float is not precise, the value may be different
+        assertTrue(fixed === "1.00" || fixed === "1.01");
+    },
+    'test toPrecision method':function () {
+//        The toPrecision() method returns either the fixed or the exponential representation of a number,
+//        depending on which makes the most sense. This method takes one argument, which is the total
+//        number of digits to use to represent the number (not including exponents).
+        var number = 55;
+        assertEquals("6e+1", number.toPrecision(1));
+        assertEquals("55", number.toPrecision(2));
+        assertEquals("55.0", number.toPrecision(3));
+        assertEquals("55.00", number.toPrecision(4));
+    },
+    'test toExponential method':function() {
+        //toExponential method accepts one argument: the number of decimal places to output
+        var number = 55;
+        assertEquals("5.5e+1", number.toExponential(1));
+        assertEquals("5.50e+1", number.toExponential(2));
+    }
+});

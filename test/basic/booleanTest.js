@@ -25,6 +25,8 @@ TestCase('Test boolean type', {
 
         //all other values are true
         assertTrue(Boolean("0"));
+        assertTrue(Boolean(new Number(0)));
+        assertTrue(Boolean(new String("")));
     },
     'test Boolean constructor':function () {
         // do not try to instantiate new Boolean object
