@@ -141,5 +141,44 @@ TestCase('Test usage of methods of String type', {
         assertEquals('<strike>hello</strike>', str.strike());
         assertEquals('<a href="url">hello</a>', str.link('url'));
         assertEquals('<i>hello</i>', str.italics());
+    },
+    'test match method without "g" in pattern':function(){
+        var str = 'jUnit,htmlUnit,phpUnit,qUnit';
+        var pattern = /.*?unit/i;
+        var matches = str.match(pattern);
+
+        assertEquals(0, matches.index);
+        assertEquals(str, matches.input);
+        assertEquals(1, matches.length);
+        assertEquals('jUnit', matches[0]);
+        assertEquals(0, pattern.lastIndex);
+    },
+    'test match method with "g" in pattern': function() {
+        var str = 'jUnit,htmlUnit,phpUnit,qUnit';
+        var pattern = /.*?Unit/g;
+        var matches = str.match(pattern);
+
+        assertUndefined(matches.index);
+        assertUndefined(matches.input);
+        assertEquals(4, matches.length);
+        assertEquals('jUnit', matches[0]);
+        assertEquals(0, pattern.lastIndex);
+    },
+    'test search method': function(){
+        var str = 'jUnit,htmlUnit,phpUnit,qUnit';
+        var pattern = /Unit/;
+
+        var position = str.search(pattern);
+        assertEquals(1,position);
+    },
+    'test replace first':function() {
+        var str = 'jUnit,htmlUnit,phpUnit,qUnit';
+        var result = str.replace("Unit", "UnitTest");
+        assertEquals('jUnitTest,htmlUnit,phpUnit,qUnit', result);
+    },
+    'test replace all ignore case': function() {
+        var str = 'jUnit,htmlUnit,phpUnit,qUnit';
+        var result = str.replace(/unit/gi, "UnitTest");
+        assertEquals('jUnitTest,htmlUnitTest,phpUnitTest,qUnitTest', result);
     }
 });
