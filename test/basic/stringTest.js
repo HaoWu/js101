@@ -111,11 +111,35 @@ TestCase('Test usage of methods of String type', {
         assertEquals(3, str.lastIndexOf('l'));
         assertEquals(2, str.lastIndexOf('l', 2));
     },
-    'test trim method': function() {
+    'test trim method':function () {
         var str = '  hello  ';
 
         assertEquals('hello', str.trim());
         //trim does not change the original str value
         assertEquals('  hello  ', str);
+    },
+    'test case method':function () {
+        var lowercaseStr = "hello",
+            uppercaseStr = "HELLO";
+
+        assertEquals(uppercaseStr, lowercaseStr.toUpperCase());
+        assertEquals(uppercaseStr, lowercaseStr.toLocaleUpperCase());
+        assertEquals(lowercaseStr, uppercaseStr.toLowerCase());
+        assertEquals(lowercaseStr, uppercaseStr.toLocaleLowerCase());
+    },
+    'test html method':function () {
+        var str = 'hello';
+        assertEquals('<a name="anchorName">hello</a>', str.anchor('anchorName'));
+        assertEquals('<big>hello</big>', str.big());
+        assertEquals('<b>hello</b>', str.bold());
+        assertEquals('<tt>hello</tt>', str.fixed());
+        assertEquals('<font color="red">hello</font>', str.fontcolor('red'));
+        assertEquals('<font size="5">hello</font>', str.fontsize(5));
+        assertEquals('<sub>hello</sub>', str.sub());
+        assertEquals('<sup>hello</sup>', str.sup());
+        assertEquals('<small>hello</small>', str.small());
+        assertEquals('<strike>hello</strike>', str.strike());
+        assertEquals('<a href="url">hello</a>', str.link('url'));
+        assertEquals('<i>hello</i>', str.italics());
     }
 });
