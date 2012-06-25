@@ -170,6 +170,8 @@ TestCase('Test usage of methods of String type', {
 
         var position = str.search(pattern);
         assertEquals(1,position);
+
+        assertEquals(-1, str.search(/aa/));
     },
     'test replace first':function() {
         var str = 'jUnit,htmlUnit,phpUnit,qUnit';
@@ -180,5 +182,12 @@ TestCase('Test usage of methods of String type', {
         var str = 'jUnit,htmlUnit,phpUnit,qUnit';
         var result = str.replace(/unit/gi, "UnitTest");
         assertEquals('jUnitTest,htmlUnitTest,phpUnitTest,qUnitTest', result);
+    },
+    'test replace with function as argument':function(){
+        var str = 'jUnit,htmlUnit,phpUnit,qUnit';
+        var result = str.replace(/unit/gi, function(match, pos, originalText){
+            return match + match;
+        });
+        assertEquals('jUnitUnit,htmlUnitUnit,phpUnitUnit,qUnitUnit', result);
     }
 });
