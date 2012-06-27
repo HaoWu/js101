@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<students>
+    <student major="Computer Science">
+        <name>Sheng Cai</name>
+    </student>
+    <student major="Mathematics">
+        <name>Bing Sun</name>
+    </student>
+</students>
