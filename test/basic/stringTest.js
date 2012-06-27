@@ -129,18 +129,19 @@ TestCase('Test usage of methods of String type', {
     },
     'test html method':function () {
         var str = 'hello';
-        assertEquals('<a name="anchorName">hello</a>', str.anchor('anchorName'));
-        assertEquals('<big>hello</big>', str.big());
-        assertEquals('<b>hello</b>', str.bold());
-        assertEquals('<tt>hello</tt>', str.fixed());
-        assertEquals('<font color="red">hello</font>', str.fontcolor('red'));
-        assertEquals('<font size="5">hello</font>', str.fontsize(5));
-        assertEquals('<sub>hello</sub>', str.sub());
-        assertEquals('<sup>hello</sup>', str.sup());
-        assertEquals('<small>hello</small>', str.small());
-        assertEquals('<strike>hello</strike>', str.strike());
-        assertEquals('<a href="url">hello</a>', str.link('url'));
-        assertEquals('<i>hello</i>', str.italics());
+        // IE returns tag/attribute name in upper case, e.g. <A NAME=\"anchorName\">hello</A>
+        assertEquals('<a name="anchorName">hello</a>'.toLowerCase(), str.anchor('anchorName').toLowerCase());
+        assertEquals('<big>hello</big>'.toLowerCase(), str.big().toLowerCase());
+        assertEquals('<b>hello</b>'.toLowerCase(), str.bold().toLowerCase());
+        assertEquals('<tt>hello</tt>'.toLowerCase(), str.fixed().toLowerCase());
+        assertEquals('<font color="red">hello</font>'.toLowerCase(), str.fontcolor('red').toLowerCase());
+        assertEquals('<font size="5">hello</font>'.toLowerCase(), str.fontsize(5).toLowerCase());
+        assertEquals('<sub>hello</sub>'.toLowerCase(), str.sub().toLowerCase());
+        assertEquals('<sup>hello</sup>'.toLowerCase(), str.sup().toLowerCase());
+        assertEquals('<small>hello</small>'.toLowerCase(), str.small().toLowerCase());
+        assertEquals('<strike>hello</strike>'.toLowerCase(), str.strike().toLowerCase());
+        assertEquals('<a href="url">hello</a>'.toLowerCase(), str.link('url').toLowerCase().toLowerCase());
+        assertEquals('<i>hello</i>'.toLowerCase(), str.italics().toLowerCase());
     },
     'test match method without "g" in pattern':function(){
         var str = 'jUnit,htmlUnit,phpUnit,qUnit';

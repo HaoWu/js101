@@ -149,7 +149,7 @@ TestCase('Test difference between parseInt/parseFloat and Number constructor', {
     },
     'test convert string start with 0':function () {
         var num = parseInt('011');
-        assertTrue(num === 9 || num === 1);
+        assertTrue(num === 9 || num === 11);
 
         assertEquals(11, Number('011'));
     },
