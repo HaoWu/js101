@@ -8,6 +8,8 @@
 
 TestCase('ArrayBuffer test', {
     'test arraybuffer to utf16 string':function () {
+        if(typeof ArrayBuffer === 'undefined')
+            return;
         var buffer = new ArrayBuffer(4),
             view = new Uint16Array(buffer),
             value;
@@ -18,6 +20,9 @@ TestCase('ArrayBuffer test', {
     },
 
     'test arraybuffer to utf8 string':function () {
+        if(typeof ArrayBuffer === 'undefined')
+            return;
+
         var buffer = new ArrayBuffer(4),
             view = new Uint8Array(buffer),
             value;
