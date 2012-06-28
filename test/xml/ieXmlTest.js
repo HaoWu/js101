@@ -34,6 +34,14 @@ TestCase('Test create and serialize xml in IE', {
 
         assertEquals('root', this.domxml.documentElement.tagName);
     },
+    'test load file to xml dom' : function(){
+        if(! this.domxml) return;
+        this.domxml.async = false; // loading file synchronouslys
+        var tmp = this.domxml.load("/test/test/xml/students.xml");
+        assertTrue(tmp);
+
+        assertEquals('students', this.domxml.documentElement.tagName);
+    },
     'test append child to document': function() {
         if(! this.domxml) return;
         this.domxml.loadXML('<root><child/></root>');
