@@ -56,5 +56,15 @@ TestCase('js basic test', {
         };
 
         assertEquals("obj", obj.name);
+    },
+    'test create object with new': function() {
+        var obj = new Object();
+        obj.name = "obj";
+        assertEquals("obj", obj.name);
+    },
+    'test get object own properties': function() {
+        var obj = new Object();
+        obj.name = "obj";
+        assertTrue(obj.hasOwnProperty('name'));
     }
 });
