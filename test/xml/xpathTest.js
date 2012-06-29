@@ -86,17 +86,34 @@ TestCase('Test javascript xpath support', {
             XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         assertEquals(1, result.snapshotLength);
     },
-    'test create namespace resolver given prefix uri map':function() {
+    'test create namespace resolver given prefix uri map':function () {
         if (!this.isXpathSupported) return;
         var nsMap = {
-            fdu: 'www.fdu.edu.cn'
+            fdu:'www.fdu.edu.cn'
         };
-        var nsResolver = function(prefix) {
+        var nsResolver = function (prefix) {
             return nsMap[prefix];
         };
         var result = this.xmldom_ns.evaluate("fdu:student[@major='Computer Science']/fdu:name",
             this.xmldom_ns.documentElement, nsResolver,
             XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         assertEquals(1, result.snapshotLength);
+    },
+    'test select single node in xml handler':function () {
+        var nsMap = {
+            fdu:'www.fdu.edu.cn'
+        };
+
+        var result = xmlHandler.selectSingleNode(this.xmldom_ns.documentElement, "fdu:student[@major='Computer Science']/fdu:name", nsMap);
+        assertEquals('Sheng Cai', result.firstChild.nodeValue);
+    },
+    'test select nodes in xml handler':function () {
+        var nsMap = {
+            fdu:'www.fdu.edu.cn'
+        };
+
+        var results = xmlHandler.selectNodes(this.xmldom_ns.documentElement, "//fdu:name", nsMap);
+        assertEquals(2, results.length);
+        assertEquals('Sheng Cai', results[0].firstChild.nodeValue);
     }
 });

@@ -48,6 +48,7 @@ TestCase('Test xpath support in IE', {
     },
 
     'test namespace support':function () {
+        if (!this.domxml) return;
         this.domxml.load("/test/test/xml/students_ns.xml");
         this.domxml.setProperty('SelectionNamespaces', 'xmlns:fdu="www.fdu.edu.cn"');
 
