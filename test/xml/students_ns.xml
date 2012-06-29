@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<fdu:students xmlns:fdu="www.fdu.edu.cn">
+    <fdu:student major="Computer Science">
+        <fdu:name>Sheng Cai</fdu:name>
+    </fdu:student>
+    <fdu:student major="Mathematics">
+        <fdu:name>Bing Sun</fdu:name>
+    </fdu:student>
+</fdu:students>

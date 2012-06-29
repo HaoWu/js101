@@ -9,11 +9,16 @@ TestCase('Test javascript xpath support', {
     setUp:function () {
         this.isXpathSupported = document.implementation.hasFeature("XPath", "3.0");
 
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("get", "/test/test/xml/students.xml", false);
-        xmlhttp.send(null);
-        this.xmldom = xmlhttp.responseXML;
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("get", "/test/test/xml/students.xml", false);
+        xmlHttp.send(null);
+        this.xmldom = xmlHttp.responseXML;
 
+
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("get", "/test/test/xml/students_ns.xml", false);
+        xmlHttp.send(null);
+        this.xmldom_ns = xmlHttp.responseXML;
     },
     'test evaluate xpath return snapshot list':function () {
         if (!this.isXpathSupported) return;
@@ -67,10 +72,31 @@ TestCase('Test javascript xpath support', {
         var studentNames = this.xmldom.evaluate('student/name', this.xmldom.documentElement, null, XPathResult.ANY_TYPE, null);
         assertEquals(XPathResult.UNORDERED_NODE_ITERATOR_TYPE, studentNames.resultType);
     },
-    'test evaluate xpath to get attributes': function() {
+    'test evaluate xpath to get attributes':function () {
         if (!this.isXpathSupported) return;
         var studentMajors = this.xmldom.evaluate('student/@major', this.xmldom.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         assertEquals(2, studentMajors.snapshotLength);
         assertEquals('Computer Science', studentMajors.snapshotItem(0).nodeValue);
+    },
+    'test create namespace resolver given xml node':function () {
+        if (!this.isXpathSupported) return;
+        var nsResolver = this.xmldom_ns.createNSResolver(this.xmldom_ns.documentElement);
+        var result = this.xmldom_ns.evaluate("fdu:student[@major='Computer Science']/fdu:name",
+            this.xmldom_ns.documentElement, nsResolver,
+            XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        assertEquals(1, result.snapshotLength);
+    },
+    'test create namespace resolver given prefix uri map':function() {
+        if (!this.isXpathSupported) return;
+        var nsMap = {
+            fdu: 'www.fdu.edu.cn'
+        };
+        var nsResolver = function(prefix) {
+            return nsMap[prefix];
+        };
+        var result = this.xmldom_ns.evaluate("fdu:student[@major='Computer Science']/fdu:name",
+            this.xmldom_ns.documentElement, nsResolver,
+            XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        assertEquals(1, result.snapshotLength);
     }
 });
