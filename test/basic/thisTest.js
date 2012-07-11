@@ -30,5 +30,15 @@ TestCase('test this', {
         var obj = {};
         assertEquals(obj, test.apply(obj));
         assertEquals(obj, test.call(obj));
+    },
+    'test this in function bind': function() {
+        function test() {
+            return this;
+        }
+
+        var obj = {};
+        var testBounded = test.bind(obj);
+        assertEquals(obj, testBounded());
+        assertEquals(window, test());
     }
 });
